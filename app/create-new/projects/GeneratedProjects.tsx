@@ -51,7 +51,7 @@ const GeneratedProjects = ({ projectName, appType, isJS, complexity, additionalT
     }, [fetchTriggered]); // Run the effect when fetchTriggered changes
 
     return (
-        <div className={`container mx-auto mt-8 min-h-screen ${loading ? 'flex flex-col justify-center' : ''}`}>
+        <div className={`container-fluid mt-8 min-h-screen ${loading ? 'flex flex-col justify-center' : ''}`}>
             <h1 className="text-2xl font-semibold mb-4 ml-3">Generated Project ideas</h1>
             <ProjectGrid projects={receivedIdeas} />
         </div>

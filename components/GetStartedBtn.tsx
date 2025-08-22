@@ -2,29 +2,50 @@
 
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { FiArrowRight } from "react-icons/fi";
+import { FiArrowRight, FiZap, FiPlay } from "react-icons/fi";
 
 const GetStarted = () => {
     const { data: session, status } = useSession();
 
+    if (status === 'loading') {
+        return (
+            <div className="btn btn-primary opacity-50 cursor-not-allowed">
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                Loading...
+            </div>
+        )
+    }
+
     if (status === 'authenticated') {
         return (
-            <Link href={'/dashboard'}>
-                <button className="bg-blue-700 hover:bg-blue-600 text-white flex items-center px-6 py-4 mt-6 md:mt-8 text-xl font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300">
-                    Get Started <FiArrowRight className="ml-2" />
+            <Link href="/dashboard">
+                <button className="btn btn-gradient group relative overflow-hidden">
+                    <div className="flex items-center space-x-2 relative z-10">
+                        <FiPlay className="transition-transform group-hover:scale-110" />
+                        <span>Go to Dashboard</span>
+                        <FiArrowRight className="transition-transform group-hover:translate-x-1" />
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary-600 to-accent-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </button>
             </Link>
         )
     }
-    else {
-        return (
-            <button className="bg-blue-700 hover:bg-blue-600 text-white flex items-center px-6 py-4 mt-6 md:mt-8 text-xl font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300" onClick={() => signIn('google', {
+
+    return (
+        <button 
+            className="btn btn-gradient group relative overflow-hidden"
+            onClick={() => signIn('google', {
                 callbackUrl: `https://projectplanner.vercel.app/api/user-signin`
-            })}>
-                Get Started <FiArrowRight className="ml-2" />
-            </button>
-        )
-    }
+            })}
+        >
+            <div className="flex items-center space-x-2 relative z-10">
+                <FiZap className="transition-transform group-hover:scale-110" />
+                <span>Get Started Free</span>
+                <FiArrowRight className="transition-transform group-hover:translate-x-1" />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-r from-primary-600 to-accent-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        </button>
+    )
 }
 
 export default GetStarted
