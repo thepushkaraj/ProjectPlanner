@@ -253,7 +253,7 @@ export default function Home() {
             >
               <div className="relative z-10">
                 <Image
-                  src="/home-hero-1.png"
+                  src="/home-hero.png"
                   height={600}
                   width={600}
                   alt="Developer coding amazing projects"
